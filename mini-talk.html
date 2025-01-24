@@ -1,1 +1,12 @@
 Embrace rewrite
+<script>
+    lookup = {};
+    lookup.to_eval = "";
+    lookup.command_bar_change = function()
+    {
+        lookup.to_eval = event.originalTarget.value;
+        console.log();
+    };
+</script>
+<input id="repl" onkeyup="lookup.command_bar_change()" />
+<button onclick="eval(lookup.to_eval)">eval</button>
