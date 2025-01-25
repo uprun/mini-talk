@@ -2,11 +2,25 @@ Embrace rewrite
 <script>
     lookup = {};
     lookup.to_eval = "";
-    lookup.command_bar_change = function()
+    lookup.latest_command_index_used = 0;
+    for(var i = 1; i < 1000; i++)
     {
-        lookup.to_eval = event.originalTarget.value;
-        console.log();
-    };
+        var key = "mini-talk--command-" + i;
+        if (key in localStorage)
+        {
+            lookup.latest_command_index_used = i;
+            history.pushState({}, "", "mini-talk.html#" + lookup.latest_command_index_used);
+            eval(localStorage[key]);
+        }
+        else
+        {
+            break;
+        }
+    }
 </script>
-<input id="repl" onkeyup="lookup.command_bar_change()" />
-<button onclick="eval(lookup.to_eval)">eval</button>
+<input id="repl" onkeyup="lookup.to_eval = event.originalTarget.value" />
+<button onclick="
+    lookup.latest_command_index_used++; 
+    var key = 'mini-talk--command-' + i;
+    localStorage[key] = lookup.to_eval;
+    eval(lookup.to_eval)">eval</button>
