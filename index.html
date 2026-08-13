@@ -8,28 +8,9 @@
     
 Embrace rewrite
 <script>
-    lookup = {};
-    lookup.to_eval = "";
-    lookup.latest_command_index_used = 0;
-    for(var i = 1; i < 1000; i++)
-    {
-        var key = "mini-talk--command-" + i;
-        if (key in localStorage)
-        {
-            lookup.latest_command_index_used = i;
-            history.pushState({}, "", "mini-talk.html#" + lookup.latest_command_index_used);
-            eval(localStorage[key]);
-        }
-        else
-        {
-            break;
-        }
-    }
+    to_eval = "";
 </script>
-<input id="repl" onkeyup="lookup.to_eval = event.originalTarget.value" />
+<input id="repl" onkeyup="to_eval = event.originalTarget.value" />
 <button onclick="
-    lookup.latest_command_index_used++; 
-    var key = 'mini-talk--command-' + i;
-    localStorage[key] = lookup.to_eval;
-    eval(lookup.to_eval)">eval</button>
+    eval(to_eval)">eval</button>
 </body>
